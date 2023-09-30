@@ -1,5 +1,13 @@
 ﻿namespace Factory;
 
+//abstract class or interface that declare all operations that all concrete types must implement
+public interface IDiscountFactory
+{
+    DiscountService CreateDiscountService();
+}
+
+//Abstract Creator
+//Declares the factory method/props to return by concrete creator
 public abstract class DiscountService
 {
     public abstract int DiscountPercentage { get; }
@@ -7,6 +15,10 @@ public abstract class DiscountService
     public override string ToString() => GetType().Name;
 }
 
+#region Concrete creators
+
+//Concrete creator
+//Overrides the factory creator to change the return result
 public class CountryDiscountService : DiscountService
 {
     private readonly string _countryIdentifier;
@@ -27,6 +39,8 @@ public class CountryDiscountService : DiscountService
     }
 }
 
+//Concrete creator
+//Overrides the factory creator to change the return result
 public class CodeDiscountService : DiscountService
 {
     private readonly string _code;
@@ -47,25 +61,28 @@ public class CodeDiscountService : DiscountService
     }
 }
 
-public abstract class DiscountFactory
-{
-    public abstract DiscountService CreateDiscountService();
-}
+#endregion Concrete creators
 
-public class CountryDiscountFactory : DiscountFactory
+//Return different concrete creator for each IDiscountFactory implementation
+
+#region Implementations of IDiscountFactory
+
+public class CountryDiscountFactory : IDiscountFactory
 {
     private readonly string _countryIdentifier;
 
     public CountryDiscountFactory(string countryIdentifier) => _countryIdentifier = countryIdentifier;
 
-    public override DiscountService CreateDiscountService() => new CountryDiscountService(_countryIdentifier);
+    public DiscountService CreateDiscountService() => new CountryDiscountService(_countryIdentifier);
 }
 
-public class CodeDiscountFactory : DiscountFactory
+public class CodeDiscountFactory : IDiscountFactory
 {
     private readonly string _code;
 
     public CodeDiscountFactory(string code) => _code = code;
 
-    public override DiscountService CreateDiscountService() => new CodeDiscountService(_code);
+    public DiscountService CreateDiscountService() => new CodeDiscountService(_code);
 }
+
+#endregion Implementations of IDiscountFactory
