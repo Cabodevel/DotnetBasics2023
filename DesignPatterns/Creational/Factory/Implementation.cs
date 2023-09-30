@@ -1,4 +1,7 @@
-﻿namespace Factory;
+﻿//FactoryMethod
+//Target: Create objects of concrete type without specify exact class
+
+namespace Factory;
 
 //abstract class or interface that declare all operations that all concrete types must implement
 public interface IDiscountFactory

@@ -1,4 +1,8 @@
-﻿namespace AbstractFactory;
+﻿//AbstractFactory
+//Target: Exposes an interface to create families of related objects
+// without specify concrete classes
+
+namespace AbstractFactory;
 
 //Abstract factory interface
 public interface IShoppingCartPurchaseFactory
